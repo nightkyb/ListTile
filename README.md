@@ -1,9 +1,10 @@
 # ListTile [![](https://jitpack.io/v/nightkyb/ListTile.svg)](https://jitpack.io/#nightkyb/ListTile)
-轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本以及trailing图片。
+
+轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本以及trailing图片。title、subtitle限制单行，extra允许多行。
 
 ## Demo
 
-![](https://github.com/nightkyb/ImageSwitcher/blob/master/demo.gif)
+![](https://github.com/nightkyb/ListTile/blob/master/Screenshot_1.png)
 
 ## Usage
 
@@ -32,36 +33,21 @@ dependencies {
 
 ### Step 2
 
-Add the ImageSwitcher to your layout:
+Add the ListTile to your layout:
 
 ```java
-<com.nightkyb.imageswitcher.ImageSwitcher
-        android:id="@+id/is_images1"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+<com.nightkyb.listtile.ListTile
+    android:id="@+id/listTile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:lt_extra="v1.0.0"
+    app:lt_leading="@drawable/ic_modify_password_24dp"
+    app:lt_leading_size="48dp"
+    app:lt_subtitle_size="14sp"
+    app:lt_title="版本版本"
+    app:lt_subtitle="哈哈啊"
+    app:lt_trailing="@drawable/ic_arrow_right_24dp"
+    app:lt_trailing_color="@color/colorAccent"/>
 ```
 
-### Step 3
-
-Java code:
-
-```java
-imageSwitcher.setImageList(images) // 设置要展示的图片列表
-             .setImageLoader(new SwitcherImageLoader() {
-                 @Override
-                 public void loadImage(final int index, @NonNull final Object uri, @NonNull final ImageView imageView) {
-                     imageView.setImageResource(Integer.parseInt(uri.toString()));
-                 }
-              }) // 设置图片加载器
-              .setStyle(ImageSwitcher.STYLE_FLOAT_LEFT) // 设置动画样式，默认STYLE_LOOP
-              .setScaleType(ImageView.ScaleType.CENTER_CROP) // 设置图片缩放类型，默认ScaleType.CENTER_CROP
-              .setInterval(2000) // 设置轮播间隔，默认2000ms
-              .setDuration(1500) // 设置动画时间，默认1000ms
-              .setStartDelay(300) // 设置动画前延时，默认150ms
-              .setHorizontalMultiple(2f) // 设置水平变化参数，默认3f
-              .setVerticalMultiple(2f) // 设置垂直变化参数，默认4f
-              .setParticleRadius(4) // 设置粒子基础半径，单位为px，默认1dp
-              .start();
-```
-
-[Code example](https://github.com/nightkyb/ImageSwitcher/blob/master/app/src/main/java/com/nightkyb/imageswitcherdemo/MainActivity.java)
+[Code example](https://github.com/nightkyb/ListTile/blob/master/app/src/main/res/layout/content_main.xml)
