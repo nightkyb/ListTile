@@ -1,0 +1,20 @@
+<resources>
+    <declare-styleable name="ListTile">
+        <attr name="lt_leading" format="reference"/>
+        <attr name="lt_trailing" format="reference"/>
+        <attr name="lt_title" format="reference|string"/>
+        <attr name="lt_subtitle" format="reference|string"/>
+        <attr name="lt_extra" format="reference|string"/>
+        <attr name="lt_leading_size" format="reference|dimension"/>
+        <attr name="lt_trailing_size" format="reference|dimension"/>
+        <attr name="lt_title_size" format="reference|dimension"/>
+        <attr name="lt_subtitle_size" format="reference|dimension"/>
+        <attr name="lt_extra_size" format="reference|dimension"/>
+        <attr name="lt_leading_color" format="reference|color"/>
+        <attr name="lt_trailing_color" format="reference|color"/>
+        <attr name="lt_leading_right_margin" format="reference|dimension"/>
+        <attr name="lt_trailing_left_margin" format="reference|dimension"/>
+        <attr name="lt_subtitle_top_margin" format="reference|dimension"/>
+        <attr name="lt_extra_left_margin" format="reference|dimension"/>
+    </declare-styleable>
+</resources>
