@@ -4,7 +4,7 @@
 
 ## Demo
 
-![](https://github.com/nightkyb/ListTile/blob/master/Screenshot_1.png)
+![](https://github.com/nightkyb/ListTile/blob/master/Screenshot.png)
 
 ## Usage
 
