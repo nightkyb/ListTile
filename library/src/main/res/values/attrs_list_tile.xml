@@ -12,6 +12,9 @@
         <attr name="lt_extra_size" format="reference|dimension"/>
         <attr name="lt_leading_color" format="reference|color"/>
         <attr name="lt_trailing_color" format="reference|color"/>
+        <attr name="lt_title_color" format="reference|color"/>
+        <attr name="lt_subtitle_color" format="reference|color"/>
+        <attr name="lt_extra_color" format="reference|color"/>
         <attr name="lt_leading_right_margin" format="reference|dimension"/>
         <attr name="lt_trailing_left_margin" format="reference|dimension"/>
         <attr name="lt_subtitle_top_margin" format="reference|dimension"/>

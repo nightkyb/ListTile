@@ -99,11 +99,12 @@ public class ListTile extends ViewGroup {
 
         if (titleText != null) {
             int titleSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_title_size, sp2px(16.0f));
+            int titleColor = ta.getColor(R.styleable.ListTile_lt_title_color, DEFAULT_TITLE_COLOR);
 
             title = new TextView(getContext());
             title.setText(titleText);
             title.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
-            title.setTextColor(DEFAULT_TITLE_COLOR);
+            title.setTextColor(titleColor);
             title.setLines(1);
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setGravity(Gravity.START);
@@ -115,12 +116,13 @@ public class ListTile extends ViewGroup {
 
         if (subtitleText != null) {
             int subtitleSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_subtitle_size, sp2px(14.0f));
+            int subtitleColor = ta.getColor(R.styleable.ListTile_lt_subtitle_color, DEFAULT_SUBTITLE_COLOR);
             subtitleTopMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_subtitle_top_margin, dp2px(4.0f));
 
             subtitle = new TextView(getContext());
             subtitle.setText(subtitleText);
             subtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtitleSize);
-            subtitle.setTextColor(DEFAULT_SUBTITLE_COLOR);
+            subtitle.setTextColor(subtitleColor);
             subtitle.setLines(1);
             subtitle.setEllipsize(TextUtils.TruncateAt.END);
             subtitle.setGravity(Gravity.START);
@@ -130,12 +132,13 @@ public class ListTile extends ViewGroup {
 
         if (extraText != null) {
             int extraSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_size, sp2px(14.0f));
+            int extraColor = ta.getColor(R.styleable.ListTile_lt_extra_color, DEFAULT_EXTRA_COLOR);
             extraLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_left_margin, dp2px(16.0f));
 
             extra = new TextView(getContext());
             extra.setText(extraText);
             extra.setTextSize(TypedValue.COMPLEX_UNIT_PX, extraSize);
-            extra.setTextColor(DEFAULT_EXTRA_COLOR);
+            extra.setTextColor(extraColor);
             extra.setGravity(Gravity.END);
 
             addView(extra);
