@@ -43,9 +43,9 @@ Add the ListTile to your layout:
     app:lt_extra="v1.0.0"
     app:lt_leading="@drawable/ic_modify_password_24dp"
     app:lt_leading_size="48dp"
+    app:lt_subtitle="哈哈啊"
     app:lt_subtitle_size="14sp"
     app:lt_title="版本版本"
-    app:lt_subtitle="哈哈啊"
     app:lt_trailing="@drawable/ic_arrow_right_24dp"
     app:lt_trailing_color="@color/colorAccent"/>
 ```
