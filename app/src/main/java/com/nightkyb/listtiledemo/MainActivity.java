@@ -24,15 +24,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // listTile.getLeading().setImageResource(R.drawable.ic_modify_password_24dp);
-                listTile.getExtra().setText("哈1.0.0版本本本版本本版本版本本本本版本版本本本本版本版哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
+                listTile.getExtraText().setText("哈1.0.0版本本本版本本版本版本本本本版本版本本本本版本版哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
+                listTile.getLeading().setImageResource(R.drawable.ic_modify_password_24dp);
                 listTile.tintLeading(R.color.colorPrimaryDark);
-                // listTile.requestLayout();
-                // listTile.requestLayout();
+                listTile.refresh();
             }
         });
 
         listTile = findViewById(R.id.listTile);
-
-        // listTile.getExtra().setText("哈哈");
     }
 }

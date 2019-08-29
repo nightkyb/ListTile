@@ -15,123 +15,125 @@
         android:showDividers="beginning|middle|end">
 
         <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lt_extra="@drawable/ic_profile"
+            app:lt_title="头像"
+            app:lt_trailing="@drawable/ic_arrow_right_24dp"
+            app:lt_trailing_color="#FF0000" />
+
+        <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:lt_extra="138*****456"
+            app:lt_leading_color="@color/colorPrimary"
+            app:lt_title="手机号码"
+            app:lt_trailing="@drawable/ic_arrow_right_24dp"
+            app:lt_trailing_color="@color/colorAccent" />
+
+        <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lt_extra="你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊"
+            app:lt_extra_left_margin="50dp"
+            app:lt_leading_color="@color/colorPrimary"
+            app:lt_title="个人简介"
+            app:lt_trailing="@drawable/ic_arrow_right_24dp"
+            app:lt_trailing_color="@color/colorAccent" />
+
+        <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:lt_extra="10086@163.com"
+            app:lt_title="绑定邮箱" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="?android:listDivider" />
+
+        <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lt_extra="v1.0.0"
             app:lt_leading="@drawable/ic_modify_password_24dp"
-            app:lt_leading_color="@color/colorPrimary"
-            app:lt_leading_size="48dp"
-            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"
-            app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
-
-        <com.nightkyb.listtile.ListTile
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lt_extra="v1.0.0"
-            app:lt_leading="@drawable/ic_profile"
-            app:lt_leading_size="64dp"
-            app:lt_title="哈哈"
-            app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
+            app:lt_leading_color="#00FF00"
+            app:lt_title="版本"
+            app:lt_trailing="@drawable/ic_navigate_next_black_24dp"
+            app:lt_trailing_color="#00FF00" />
 
         <com.nightkyb.listtile.ListTile
             android:id="@+id/listTile"
+            style="@style/ListTileStyle.ExtraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lt_extra="v1.0.0"
             app:lt_extra_color="#ff4400"
-            app:lt_extra_left_margin="16dp"
-            app:lt_extra_size="14sp"
-            app:lt_leading="@drawable/ic_modify_password_24dp"
-            app:lt_leading_color="#dd0000"
-            app:lt_leading_right_margin="16dp"
+            app:lt_leading="@drawable/ic_profile"
             app:lt_leading_size="48dp"
             app:lt_subtitle="哈哈啊"
             app:lt_subtitle_color="#ff0000"
-            app:lt_subtitle_size="14sp"
-            app:lt_subtitle_top_margin="4dp"
             app:lt_title="版本版本"
             app:lt_title_color="#ff00ff"
-            app:lt_title_size="16sp"
             app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"
-            app:lt_trailing_left_margin="0dp"
-            app:lt_trailing_size="24dp"/>
+            app:lt_trailing_color="#ff00ff" />
 
         <com.nightkyb.listtile.ListTile
             android:layout_width="200dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:background="#33ff44"
             app:lt_leading="@drawable/ic_modify_password_24dp"
             app:lt_leading_color="@color/colorPrimary"
             app:lt_title="哈哈哈"
             app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
+            app:lt_trailing_color="@color/colorAccent" />
 
         <com.nightkyb.listtile.ListTile
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:background="#33ff44"
             app:lt_leading="@drawable/ic_modify_password_24dp"
-            app:lt_leading_color="@color/colorPrimary"
-            app:lt_title="哈lt_extra_left_marginsdfasdfsdfas"
-            app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
+            app:lt_title="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" />
 
         <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lt_extra="v1.0.0"
             app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"
+            app:lt_title_textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
+            app:lt_trailing_color="@color/colorAccent" />
 
         <com.nightkyb.listtile.ListTile
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"
+            android:layout_height="wrap_content"
+            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈哈哈哈嘎嘎嘎嘎嘎哈哈哈哈嘎嘎嘎嘎"
             app:lt_trailing="@drawable/ic_arrow_right_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
+            app:lt_trailing_color="@color/colorAccent" />
 
         <com.nightkyb.listtile.ListTile
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"/>
+            android:layout_height="wrap_content"
+            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈哈哈嘎嘎嘎嘎嘎哈哈哈哈嘎嘎嘎嘎嘎" />
 
         <com.nightkyb.listtile.ListTile
+            style="@style/ListTileStyle.ExtraText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             app:lt_extra="v1.0.0"
             app:lt_leading="@drawable/ic_modify_password_24dp"
             app:lt_leading_color="@color/colorPrimary"
-            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"/>
-
-        <com.nightkyb.listtile.ListTile
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:lt_leading="@drawable/ic_modify_password_24dp"
-            app:lt_leading_color="@color/colorPrimary"
-            app:lt_title="哈哈哈哈嘎嘎嘎嘎嘎哈哈1234567890一二三四五sdfasdfsdfas"/>
-
-        <com.nightkyb.listtile.ListTile
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lt_extra="哈哈哈哈嘎嘎嘎嘎哈哈123456789嘎嘎嘎哈哈123456嘎嘎哈哈123456嘎嘎哈哈123456嘎哈哈1234sdfsdfsd56789嘎嘎嘎哈哈1234567890一二三四五"
-            app:lt_leading_color="@color/colorPrimary"
-            app:lt_title="三四五"
-            app:lt_trailing="@drawable/ic_modify_password_24dp"
-            app:lt_trailing_color="@color/colorAccent"/>
-
-        <com.nightkyb.listtile.ListTile
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lt_extra="哈哈哈哈嘎嘎嘎嘎哈哈123456789嘎嘎嘎哈哈123456嘎嘎哈哈123456嘎嘎哈哈123456嘎哈哈1234sdfsdfsd56789嘎嘎嘎哈哈1234567890一二三四五"
-            app:lt_title="三四五"/>
+            app:lt_title="哈哈哈哈嘎嘎嘎嘎哈哈哈哈嘎嘎嘎嘎嘎哈哈哈哈嘎嘎嘎嘎嘎" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="160dp"/>
+            android:layout_height="160dp" />
 
     </LinearLayout>
 

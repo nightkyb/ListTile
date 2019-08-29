@@ -5,8 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -15,133 +15,181 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Px;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import java.util.Objects;
+
 /**
- * 轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本以及trailing图片。
+ * 轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本/图片以及trailing图片。
  * title、subtitle限制单行，extra允许多行。
  *
  * @author nightkyb created at 2019/7/22 11:53
  */
 public class ListTile extends ViewGroup {
-    public static final int DEFAULT_ICON_COLOR = 0x8A000000; // md_black_54
-    public static final int DEFAULT_TITLE_COLOR = 0xDD000000; // md_black_87
-    public static final int DEFAULT_SUBTITLE_COLOR = 0x8A000000; // md_black_54
-    public static final int DEFAULT_EXTRA_COLOR = 0x8A000000; // md_black_54
+    private static final int DEF_STYLE_RES = R.style.ListTileStyle;
+    private static final int EXTRA_TYPE_TEXT = 1;
+    private static final int EXTRA_TYPE_IMAGE = 2;
 
     private ImageView leading;
     private ImageView trailing;
     private TextView title;
     private TextView subtitle;
-    private TextView extra;
+    private View extra;
+    private int extraType;
 
-    private int leadingRightMargin; // 默认16dp
-    private int trailingLeftMargin; // 默认0dp
-    private int subtitleTopMargin; // 默认4dp
-    private int extraLeftMargin; // 默认16dp
+    @Px
+    private int leadingRightMargin;
+    @Px
+    private int trailingLeftMargin;
+    @Px
+    private int subtitleTopMargin;
+    @Px
+    private int extraLeftMargin;
 
     public ListTile(Context context) {
         this(context, null);
     }
 
     public ListTile(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, R.attr.listTileStyle);
     }
 
     public ListTile(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-
-        setPadding(dp2px(16.0f), dp2px(8.0f), dp2px(16.0f), dp2px(8.0f));
+        super(context, attrs, defStyleAttr, DEF_STYLE_RES);
 
         // 获取自定义属性
-        final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ListTile);
+        final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ListTile, defStyleAttr, DEF_STYLE_RES);
 
-        Drawable leadingDrawable = ta.getDrawable(R.styleable.ListTile_lt_leading);
-        Drawable trailingDrawable = ta.getDrawable(R.styleable.ListTile_lt_trailing);
-        CharSequence titleText = ta.getText(R.styleable.ListTile_lt_title);
-        CharSequence subtitleText = ta.getText(R.styleable.ListTile_lt_subtitle);
-        CharSequence extraText = ta.getText(R.styleable.ListTile_lt_extra);
+        if (ta.hasValue(R.styleable.ListTile_lt_leading)) {
+            Drawable leadingDrawable = ta.getDrawable(R.styleable.ListTile_lt_leading);
 
-        if (leadingDrawable != null) {
-            if (ta.hasValue(R.styleable.ListTile_lt_leading_color)) {
-                int leadingColor = ta.getColor(R.styleable.ListTile_lt_leading_color, DEFAULT_ICON_COLOR);
-                leadingDrawable = tint(leadingDrawable, leadingColor);
+            if (leadingDrawable != null) {
+                if (ta.hasValue(R.styleable.ListTile_lt_leading_color)) {
+                    int leadingColor = ta.getColor(R.styleable.ListTile_lt_leading_color, 0);
+                    leadingDrawable = tint(leadingDrawable, leadingColor);
+                }
+
+                int leadingSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_leading_size, 0);
+                leadingRightMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_leading_right_margin, 0);
+
+                leading = new ImageView(context);
+                leading.setScaleType(ScaleType.CENTER_CROP);
+                leading.setImageDrawable(leadingDrawable);
+                leading.setLayoutParams(new LayoutParams(leadingSize, leadingSize));
+
+                addView(leading);
             }
-
-            int leadingSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_leading_size, dp2px(24.0f));
-            leadingRightMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_leading_right_margin, dp2px(16.0f));
-
-            leading = new ImageView(getContext());
-            leading.setScaleType(ScaleType.CENTER_CROP);
-            leading.setImageDrawable(leadingDrawable);
-            leading.setLayoutParams(new LayoutParams(leadingSize, leadingSize));
-
-            addView(leading);
         }
 
-        if (trailingDrawable != null) {
-            if (ta.hasValue(R.styleable.ListTile_lt_trailing_color)) {
-                int trailingColor = ta.getColor(R.styleable.ListTile_lt_trailing_color, DEFAULT_ICON_COLOR);
-                trailingDrawable = tint(trailingDrawable, trailingColor);
+        if (ta.hasValue(R.styleable.ListTile_lt_trailing)) {
+            Drawable trailingDrawable = ta.getDrawable(R.styleable.ListTile_lt_trailing);
+
+            if (trailingDrawable != null) {
+                if (ta.hasValue(R.styleable.ListTile_lt_trailing_color)) {
+                    int trailingColor = ta.getColor(R.styleable.ListTile_lt_trailing_color, 0);
+                    trailingDrawable = tint(trailingDrawable, trailingColor);
+                }
+
+                int trailingSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_trailing_size, 0);
+                trailingLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_trailing_left_margin, 0);
+
+                trailing = new ImageView(context);
+                trailing.setScaleType(ScaleType.CENTER_CROP);
+                trailing.setImageDrawable(trailingDrawable);
+                trailing.setLayoutParams(new LayoutParams(trailingSize, trailingSize));
+
+                addView(trailing);
             }
-
-            int trailingSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_trailing_size, dp2px(24.0f));
-            trailingLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_trailing_left_margin, 0);
-
-            trailing = new ImageView(getContext());
-            trailing.setScaleType(ScaleType.CENTER_CROP);
-            trailing.setImageDrawable(trailingDrawable);
-            trailing.setLayoutParams(new LayoutParams(trailingSize, trailingSize));
-
-            addView(trailing);
         }
 
-        if (titleText != null) {
-            int titleSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_title_size, sp2px(16.0f));
-            int titleColor = ta.getColor(R.styleable.ListTile_lt_title_color, DEFAULT_TITLE_COLOR);
+        if (ta.hasValue(R.styleable.ListTile_lt_title)) {
+            CharSequence titleText = ta.getText(R.styleable.ListTile_lt_title);
 
-            title = new TextView(getContext());
-            title.setText(titleText);
-            title.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
-            title.setTextColor(titleColor);
-            title.setLines(1);
-            title.setEllipsize(TextUtils.TruncateAt.END);
-            title.setGravity(Gravity.START);
+            if (titleText != null) {
+                int titleTextAppearance = ta.getResourceId(R.styleable.ListTile_lt_title_textAppearance, 0);
+                int titleColor = ta.getColor(R.styleable.ListTile_lt_title_color, 0);
 
-            addView(title);
+                title = new TextView(context);
+                title.setText(titleText);
+                title.setTextAppearance(context, titleTextAppearance);
+                title.setTextColor(titleColor);
+                title.setLines(1);
+                title.setEllipsize(TextUtils.TruncateAt.END);
+                title.setGravity(Gravity.START);
+
+                addView(title);
+            } else {
+                throw new IllegalArgumentException("Title must be a String!");
+            }
         } else {
             throw new IllegalArgumentException("Title must be set!");
         }
 
-        if (subtitleText != null) {
-            int subtitleSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_subtitle_size, sp2px(14.0f));
-            int subtitleColor = ta.getColor(R.styleable.ListTile_lt_subtitle_color, DEFAULT_SUBTITLE_COLOR);
-            subtitleTopMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_subtitle_top_margin, dp2px(4.0f));
+        if (ta.hasValue(R.styleable.ListTile_lt_subtitle)) {
+            CharSequence subtitleText = ta.getText(R.styleable.ListTile_lt_subtitle);
 
-            subtitle = new TextView(getContext());
-            subtitle.setText(subtitleText);
-            subtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtitleSize);
-            subtitle.setTextColor(subtitleColor);
-            subtitle.setLines(1);
-            subtitle.setEllipsize(TextUtils.TruncateAt.END);
-            subtitle.setGravity(Gravity.START);
+            if (subtitleText != null) {
+                int subtitleTextAppearance = ta.getResourceId(R.styleable.ListTile_lt_subtitle_textAppearance, 0);
+                int subtitleColor = ta.getColor(R.styleable.ListTile_lt_subtitle_color, 0);
+                subtitleTopMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_subtitle_top_margin, 0);
 
-            addView(subtitle);
+                subtitle = new TextView(context);
+                subtitle.setText(subtitleText);
+                subtitle.setTextAppearance(context, subtitleTextAppearance);
+                subtitle.setTextColor(subtitleColor);
+                subtitle.setLines(1);
+                subtitle.setEllipsize(TextUtils.TruncateAt.END);
+                subtitle.setGravity(Gravity.START);
+
+                addView(subtitle);
+            }
         }
 
-        if (extraText != null) {
-            int extraSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_size, sp2px(14.0f));
-            int extraColor = ta.getColor(R.styleable.ListTile_lt_extra_color, DEFAULT_EXTRA_COLOR);
-            extraLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_left_margin, dp2px(16.0f));
+        if (ta.hasValue(R.styleable.ListTile_lt_extra)) {
+            extraType = ta.getInt(R.styleable.ListTile_lt_extra_type, EXTRA_TYPE_TEXT); // 默认text类型
 
-            extra = new TextView(getContext());
-            extra.setText(extraText);
-            extra.setTextSize(TypedValue.COMPLEX_UNIT_PX, extraSize);
-            extra.setTextColor(extraColor);
-            extra.setGravity(Gravity.END);
+            if (extraType == EXTRA_TYPE_TEXT) {
+                CharSequence extraText = ta.getText(R.styleable.ListTile_lt_extra);
 
-            addView(extra);
+                if (extraText != null) {
+                    int extraTextAppearance = ta.getResourceId(R.styleable.ListTile_lt_extra_textAppearance, 0);
+                    int extraColor = ta.getColor(R.styleable.ListTile_lt_extra_color, 0);
+                    extraLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_left_margin, 0);
+
+                    TextView extraTextView = new TextView(context);
+                    extraTextView.setText(extraText);
+                    extraTextView.setTextAppearance(context, extraTextAppearance);
+                    extraTextView.setTextColor(extraColor);
+                    extraTextView.setGravity(Gravity.END);
+
+                    extra = extraTextView;
+
+                    addView(extra);
+                }
+            } else {
+                Drawable extraDrawable = ta.getDrawable(R.styleable.ListTile_lt_extra);
+
+                if (extraDrawable != null) {
+                    if (ta.hasValue(R.styleable.ListTile_lt_extra_color)) {
+                        int extraColor = ta.getColor(R.styleable.ListTile_lt_extra_color, 0);
+                        extraDrawable = tint(extraDrawable, extraColor);
+                    }
+
+                    int extraSize = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_size, 0);
+                    extraLeftMargin = ta.getDimensionPixelSize(R.styleable.ListTile_lt_extra_left_margin, 0);
+
+                    ImageView extraImageView = new ImageView(context);
+                    extraImageView.setScaleType(ScaleType.CENTER_CROP);
+                    extraImageView.setImageDrawable(extraDrawable);
+                    extraImageView.setLayoutParams(new LayoutParams(extraSize, extraSize));
+
+                    extra = extraImageView;
+
+                    addView(extra);
+                }
+            }
         }
 
         ta.recycle();
@@ -292,14 +340,6 @@ public class ListTile extends ViewGroup {
         }
     }
 
-    private int dp2px(float dp) {
-        return (int) (dp * getResources().getDisplayMetrics().density + 0.5f);
-    }
-
-    private int sp2px(float sp) {
-        return (int) (sp * getResources().getDisplayMetrics().scaledDensity + 0.5f);
-    }
-
     /**
      * 对目标Drawable进行着色
      *
@@ -317,24 +357,42 @@ public class ListTile extends ViewGroup {
         return wrappedDrawable;
     }
 
+    @NonNull
     public ImageView getLeading() {
-        return leading;
+        return Objects.requireNonNull(leading, "Leading not set!");
     }
 
+    @NonNull
     public ImageView getTrailing() {
-        return trailing;
+        return Objects.requireNonNull(trailing, "Trailing not set!");
     }
 
+    @NonNull
     public TextView getTitle() {
-        return title;
+        return Objects.requireNonNull(title, "Title not set!");
     }
 
+    @NonNull
     public TextView getSubtitle() {
-        return subtitle;
+        return Objects.requireNonNull(subtitle, "Subtitle not set!");
     }
 
-    public TextView getExtra() {
-        return extra;
+    @NonNull
+    public TextView getExtraText() {
+        if (extraType == EXTRA_TYPE_TEXT) {
+            return (TextView) Objects.requireNonNull(extra, "Extra not set!");
+        } else {
+            throw new IllegalStateException("Extra Text not set!");
+        }
+    }
+
+    @NonNull
+    public ImageView getExtraImage() {
+        if (extraType == EXTRA_TYPE_IMAGE) {
+            return (ImageView) Objects.requireNonNull(extra, "Extra not set!");
+        } else {
+            throw new IllegalStateException("Extra Image not set!");
+        }
     }
 
     public void tintLeading(@ColorRes int color) {
@@ -345,5 +403,19 @@ public class ListTile extends ViewGroup {
     public void tintTrailing(@ColorRes int color) {
         int tint = ContextCompat.getColor(getContext(), color);
         trailing.setImageDrawable(tint(trailing.getDrawable(), tint));
+    }
+
+    /**
+     * 当在代码中调用了可能改变组件大小的方法之后，需要调用该方法重新布局。例如TextView的setText()方法。
+     * <p>
+     * 注意：组件初始化setText()时不需要调用该方法。
+     */
+    public void refresh() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                requestLayout();
+            }
+        });
     }
 }

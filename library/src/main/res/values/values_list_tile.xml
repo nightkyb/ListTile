@@ -1,0 +1,69 @@
+<resources>
+    <attr name="listTileStyle" format="reference" />
+
+    <!-- Not include extra. -->
+    <style name="ListTileStyle">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+
+        <item name="lt_leading_size">24dp</item>
+        <item name="lt_trailing_size">24dp</item>
+        <item name="lt_title_textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="lt_subtitle_textAppearance">?attr/textAppearanceSubtitle2</item>
+
+        <item name="lt_title_color">@color/mtrl_on_surface_emphasis_high_type</item>
+        <item name="lt_subtitle_color">@color/mtrl_on_surface_emphasis_medium</item>
+
+        <item name="lt_leading_right_margin">16dp</item>
+        <item name="lt_trailing_left_margin">8dp</item>
+        <item name="lt_subtitle_top_margin">4dp</item>
+    </style>
+
+    <!-- Include extra, extra type is text. -->
+    <style name="ListTileStyle.ExtraText">
+        <item name="lt_extra_type">text</item>
+        <item name="lt_extra_textAppearance">?attr/textAppearanceBody2</item>
+        <item name="lt_extra_color">@color/mtrl_on_surface_emphasis_medium</item>
+        <item name="lt_extra_left_margin">8dp</item>
+    </style>
+
+    <!-- Include extra, extra type is image. -->
+    <style name="ListTileStyle.ExtraImage">
+        <item name="lt_extra_type">image</item>
+        <item name="lt_extra_size">64dp</item>
+        <item name="lt_extra_left_margin">8dp</item>
+    </style>
+
+    <declare-styleable name="ListTile">
+        <attr name="lt_leading" format="reference" />
+        <attr name="lt_trailing" format="reference" />
+        <attr name="lt_title" format="reference|string" />
+        <attr name="lt_subtitle" format="reference|string" />
+        <attr name="lt_extra" format="reference|string" />
+        <attr name="lt_extra_type" format="flags">
+            <flag name="text" value="1" />
+            <flag name="image" value="2" />F
+        </attr>
+
+        <attr name="lt_leading_size" format="reference|dimension" />
+        <attr name="lt_trailing_size" format="reference|dimension" />
+        <attr name="lt_extra_size" format="reference|dimension" />
+        <attr name="lt_title_textAppearance" format="reference" />
+        <attr name="lt_subtitle_textAppearance" format="reference" />
+        <attr name="lt_extra_textAppearance" format="reference" />
+
+        <attr name="lt_leading_color" format="reference|color" />
+        <attr name="lt_trailing_color" format="reference|color" />
+        <attr name="lt_title_color" format="reference|color" />
+        <attr name="lt_subtitle_color" format="reference|color" />
+        <attr name="lt_extra_color" format="reference|color" />
+
+        <attr name="lt_leading_right_margin" format="reference|dimension" />
+        <attr name="lt_trailing_left_margin" format="reference|dimension" />
+        <attr name="lt_subtitle_top_margin" format="reference|dimension" />
+        <attr name="lt_extra_left_margin" format="reference|dimension" />
+    </declare-styleable>
+
+</resources>
