@@ -10,7 +10,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nightkyb.listtile.ListTile;
 
 public class MainActivity extends AppCompatActivity {
-    private ListTile listTile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +18,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ListTile listTile = findViewById(R.id.listTile);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // listTile.getLeading().setImageResource(R.drawable.ic_modify_password_24dp);
-                listTile.getExtraText().setText("哈1.0.0版本本本版本本版本版本本本本版本版本本本本版本版哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
-                listTile.getLeading().setImageResource(R.drawable.ic_modify_password_24dp);
+                listTile.setLeadingDrawable(R.drawable.ic_modify_password_24dp);
                 listTile.tintLeading(R.color.colorPrimaryDark);
-                listTile.refresh();
+                listTile.setExtraText("哈1.0.0版本本本版本本版本版本本本本版本版本本本本版本版哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈");
             }
         });
-
-        listTile = findViewById(R.id.listTile);
     }
 }

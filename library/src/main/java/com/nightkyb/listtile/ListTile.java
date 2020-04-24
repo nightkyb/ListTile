@@ -1,6 +1,7 @@
 package com.nightkyb.listtile;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -14,12 +15,22 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Px;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.util.Objects;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * 轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本/图片以及trailing图片。
@@ -29,14 +40,13 @@ import java.util.Objects;
  */
 public class ListTile extends ViewGroup {
     private static final int DEF_STYLE_RES = R.style.ListTileStyle;
-    private static final int EXTRA_TYPE_TEXT = 1;
-    private static final int EXTRA_TYPE_IMAGE = 2;
 
     private ImageView leading;
     private ImageView trailing;
     private TextView title;
     private TextView subtitle;
     private View extra;
+    @ExtraType
     private int extraType;
 
     @Px
@@ -47,6 +57,14 @@ public class ListTile extends ViewGroup {
     private int subtitleTopMargin;
     @Px
     private int extraLeftMargin;
+
+    @Retention(SOURCE)
+    @Target({FIELD, PARAMETER, METHOD})
+    @IntDef({ExtraType.TEXT, ExtraType.IMAGE})
+    public @interface ExtraType {
+        int TEXT = 1;
+        int IMAGE = 2;
+    }
 
     public ListTile(Context context) {
         this(context, null);
@@ -148,9 +166,9 @@ public class ListTile extends ViewGroup {
         }
 
         if (ta.hasValue(R.styleable.ListTile_lt_extra)) {
-            extraType = ta.getInt(R.styleable.ListTile_lt_extra_type, EXTRA_TYPE_TEXT); // 默认text类型
+            extraType = ta.getInt(R.styleable.ListTile_lt_extra_type, ExtraType.TEXT); // 默认text类型
 
-            if (extraType == EXTRA_TYPE_TEXT) {
+            if (extraType == ExtraType.TEXT) {
                 CharSequence extraText = ta.getText(R.styleable.ListTile_lt_extra);
 
                 if (extraText != null) {
@@ -379,7 +397,7 @@ public class ListTile extends ViewGroup {
 
     @NonNull
     public TextView getExtraText() {
-        if (extraType == EXTRA_TYPE_TEXT) {
+        if (extraType == ExtraType.TEXT) {
             return (TextView) Objects.requireNonNull(extra, "Extra not set!");
         } else {
             throw new IllegalStateException("Extra Text not set!");
@@ -388,7 +406,7 @@ public class ListTile extends ViewGroup {
 
     @NonNull
     public ImageView getExtraImage() {
-        if (extraType == EXTRA_TYPE_IMAGE) {
+        if (extraType == ExtraType.IMAGE) {
             return (ImageView) Objects.requireNonNull(extra, "Extra not set!");
         } else {
             throw new IllegalStateException("Extra Image not set!");
@@ -397,12 +415,58 @@ public class ListTile extends ViewGroup {
 
     public void tintLeading(@ColorRes int color) {
         int tint = ContextCompat.getColor(getContext(), color);
-        leading.setImageDrawable(tint(leading.getDrawable(), tint));
+        leading.setImageTintList(ColorStateList.valueOf(tint));
     }
 
     public void tintTrailing(@ColorRes int color) {
         int tint = ContextCompat.getColor(getContext(), color);
-        trailing.setImageDrawable(tint(trailing.getDrawable(), tint));
+        trailing.setImageTintList(ColorStateList.valueOf(tint));
+    }
+
+    public void setLeadingDrawable(@DrawableRes int drawable) {
+        getLeading().setImageResource(drawable);
+    }
+
+    public void setLeadingDrawable(Drawable drawable) {
+        getLeading().setImageDrawable(drawable);
+    }
+
+    public void setTrailingDrawable(@DrawableRes int drawable) {
+        getTrailing().setImageResource(drawable);
+    }
+
+    public void setTrailingDrawable(Drawable drawable) {
+        getTrailing().setImageDrawable(drawable);
+    }
+
+    public void setTitleText(@StringRes int text) {
+        getTitle().setText(text);
+        refresh();
+    }
+
+    public void setTitleText(CharSequence text) {
+        getTitle().setText(text);
+        refresh();
+    }
+
+    public void setSubtitleText(@StringRes int text) {
+        getSubtitle().setText(text);
+        refresh();
+    }
+
+    public void setSubtitleText(CharSequence text) {
+        getSubtitle().setText(text);
+        refresh();
+    }
+
+    public void setExtraText(@StringRes int text) {
+        getExtraText().setText(text);
+        refresh();
+    }
+
+    public void setExtraText(CharSequence text) {
+        getExtraText().setText(text);
+        refresh();
     }
 
     /**

@@ -96,7 +96,7 @@
         <com.nightkyb.listtile.ListTile
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#33ff44"
+            android:background="?selectableItemBackgroundBorderless"
             app:lt_leading="@drawable/ic_modify_password_24dp"
             app:lt_title="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" />
 
