@@ -1,6 +1,6 @@
 # ListTile [![](https://jitpack.io/v/nightkyb/ListTile.svg)](https://jitpack.io/#nightkyb/ListTile)
 
-轻量级的列表项组件，包含必选的title文本，可选的heading图片，subtitle文本，extra文本/图片以及trailing图片。title、subtitle限制单行，extra允许多行。
+轻量级的列表项组件，包含必选的title文本，可选的leading图片，subtitle文本，extra文本/图片以及trailing图片。title、subtitle限制单行，extra允许多行。
 
 ## Demo
 
