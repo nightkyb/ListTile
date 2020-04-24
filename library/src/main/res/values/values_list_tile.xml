@@ -10,10 +10,11 @@
 
         <item name="lt_leading_size">24dp</item>
         <item name="lt_trailing_size">24dp</item>
-        <item name="lt_title_textAppearance">?textAppearanceListItem</item>
-        <item name="lt_subtitle_textAppearance">?textAppearanceListItemSecondary</item>
 
+        <item name="lt_title_textAppearance">?textAppearanceListItem</item>
         <item name="lt_title_color">@android:color/primary_text_light</item>
+
+        <item name="lt_subtitle_textAppearance">?textAppearanceListItemSecondary</item>
         <item name="lt_subtitle_color">@android:color/tertiary_text_light</item>
 
         <item name="lt_leading_right_margin">16dp</item>
