@@ -45,7 +45,7 @@
         <attr name="lt_extra" format="reference|string" />
         <attr name="lt_extra_type" format="flags">
             <flag name="text" value="1" />
-            <flag name="image" value="2" />F
+            <flag name="image" value="2" />
         </attr>
 
         <attr name="lt_leading_size" format="reference|dimension" />
